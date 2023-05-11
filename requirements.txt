@@ -1,0 +1,6 @@
+openai 
+streamlit 
+llama-index 
+langchain 
+youtube-transcript-api
+html2image
