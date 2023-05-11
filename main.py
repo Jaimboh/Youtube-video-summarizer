@@ -8,8 +8,7 @@ os.environ["OPENAI_API_KEY"] = api_key
 
 from llama_index import download_loader
 from llama_index import GPTVectorStoreIndex
-from llama_index import GPTSimpleVectorIndex
-from llama_index import LLMPredictor, GPTSimpleVectorIndex, PromptHelper, ServiceContext
+from llama_index import LLMPredictor, GPTVectorStoreIndex, PromptHelper, ServiceContext
 from langchain import OpenAI
 from langchain.chat_models import ChatOpenAI
 
@@ -67,7 +66,7 @@ if st.session_state.video_id != '':
     # define LLM
     llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo", max_tokens=500))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
-    index = GPTSimpleVectorIndex.from_documents(
+    index = GPTVectorStoreIndex.from_documents(
         documents, service_context=service_context
     )
     index.save_to_disk(index_file)
