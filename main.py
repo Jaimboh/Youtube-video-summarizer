@@ -98,7 +98,7 @@ if st.session_state.video_id != '':
             #print(prompt)
             response = index.query(prompt)
             start_time = str(datetime.timedelta(seconds=section_start_s))
-            end_time = str(datetime.timedelta(seconds=int(d['start']))
+            end_time = str(datetime.timedelta(seconds=int(d['start'])))
 
             section_start_s += 300
             start_text = d["text"]
