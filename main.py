@@ -20,7 +20,6 @@ from html2image import Html2Image
 doc_path = './data/'
 transcript_file = './data/transcript.json'
 index_file = 'index.json'
-youtube_img = 'youtube.png'
 youtube_link = ''
 
 if 'video_id' not in st.session_state:
@@ -53,30 +52,9 @@ if st.session_state.video_id != '':
         f.write(json_formatted)
 
     # Using Html2Image
-    chrome_path = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
-    hti = Html2Image(chrome_path=chrome_path)
-    hti.screenshot(url=f"https://www.youtube.com/watch?v={st.session_state.video_id}", save_as=youtube_img)
+    hti = Html2Image(executable_path=r'C:\Program Files\Google\Chrome\Application\chrome.exe')
 
-    # Using Selenium
-    # from selenium import webdriver
-    # options = webdriver.ChromeOptions()
-    # options.add_argument('--headless')
-    # options.add_argument('--disable-gpu')
-    # options.add_argument('--no-sandbox')
-    # options.add_argument('--disable-dev-shm-usage')
-    # options.add_argument('--disable-extensions')
-    # options.add_argument('--disable-infobars')
-    # options.add_argument('--disable-popup-blocking')
-    # options.add_argument('--disable-browser-side-navigation')
-    # options.add_argument('--disable-features=VizDisplayCompositor')
-    # options.add_argument('--disable-blink-features=AutomationControlled')
-    # options.add_argument('--disable-logging')
-    # options.add_argument('--log-level=3')
-    # options.add_argument('--output=/dev/null')
-    # driver = webdriver.Chrome(options=options)
-    # driver.get(f"https://www.youtube.com/watch?v={st.session_state.video_id}")
-    # driver.save_screenshot(youtube_img)
-    # driver.quit()
+  
 
     SimpleDirectoryReader = download_loader("SimpleDirectoryReader")
 
@@ -84,7 +62,6 @@ if st.session_state.video_id != '':
     documents = loader.load_data()
 
     sidebar_placeholder.header('Current Processing Video')
-    sidebar_placeholder.image(youtube_img)
     sidebar_placeholder.write(documents[0].get_text()[:10000]+'...')
 
     # define LLM
@@ -149,4 +126,5 @@ if st.session_state.video_id != '':
 
     st.session_state.video_id = ''
     st.stop()
+
 
