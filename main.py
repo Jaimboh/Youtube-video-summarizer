@@ -5,7 +5,6 @@ api_key = st.secrets["openai"]["api_key"]
 # Set the OpenAI API key as an environment variable
 os.environ["OPENAI_API_KEY"] = api_key
 
-
 from llama_index import download_loader
 from llama_index import GPTVectorStoreIndex
 from llama_index import LLMPredictor, GPTVectorStoreIndex, PromptHelper, ServiceContext
@@ -28,14 +27,16 @@ if 'video_id' not in st.session_state:
     st.session_state.video_id = ''
 
 def send_click():
-    st.session_state.video_id = youtube_link.split("v=")[1][:11]
+    if "v=" in youtube_link:
+        st.session_state.video_id = youtube_link.split("v=")[1][:11]
+    else:
+        st.error("Invalid Youtube link. Please enter a valid link.")
 
 index = None
 st.title("Tom's Youtube Video Summarizer")
 # Create the Documents directory if it doesn't exist
 if not os.path.exists(doc_path):
     os.makedirs(doc_path)
-
 
 sidebar_placeholder = st.sidebar.container()
 youtube_link = st.text_input("Youtube link:")
@@ -51,7 +52,7 @@ if st.session_state.video_id != '':
     with open(transcript_file, 'w') as f: 
         f.write(json_formatted)
 
-    hti = Html2Image()
+    hti = Html2Image(chrome_path='/usr/bin/google-chrome')
     hti.screenshot(url=f"https://www.youtube.com/watch?v={st.session_state.video_id}", save_as=youtube_img)
     
     SimpleDirectoryReader = download_loader("SimpleDirectoryReader")
