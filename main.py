@@ -72,7 +72,7 @@ if st.session_state.video_id != '':
     index = GPTVectorStoreIndex.from_documents(
         documents, service_context=service_context
     )
-    index.save_to_disk(index_file)
+    index.save(index_file)
 
     section_texts = ''
     section_start_s = 0
