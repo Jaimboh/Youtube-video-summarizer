@@ -52,7 +52,8 @@ if st.session_state.video_id != '':
     with open(transcript_file, 'w') as f: 
         f.write(json_formatted)
 
-    hti = Html2Image(chrome_path='/usr/bin/google-chrome')
+    os.environ['CHROME_PATH'] = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
+    hti = Html2Image()
     hti.screenshot(url=f"https://www.youtube.com/watch?v={st.session_state.video_id}", save_as=youtube_img)
     
     SimpleDirectoryReader = download_loader("SimpleDirectoryReader")
@@ -65,7 +66,7 @@ if st.session_state.video_id != '':
     sidebar_placeholder.write(documents[0].get_text()[:10000]+'...')
 
     # define LLM
-    llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo", max_tokens=500))
+    llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=0, model_name="gpt-3.-turbo", max_tokens=500))
     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
     index = GPTVectorStoreIndex.from_documents(
         documents, service_context=service_context
