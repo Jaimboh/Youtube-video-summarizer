@@ -1,6 +1,6 @@
 openai 
 streamlit 
-llama-index 
+llama-index==0.6.0.alpha3
 langchain 
 youtube-transcript-api
 html2image
