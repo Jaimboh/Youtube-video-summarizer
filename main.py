@@ -52,7 +52,7 @@ if st.session_state.video_id != '':
         f.write(json_formatted)
 
     # Using Html2Image
-    hti = Html2Image(executable_path=r'C:\Program Files\Google\Chrome\Application\chrome.exe')
+   hti = Html2Image(browser_executable=r'C:\Program Files\Google\Chrome\Application\chrome.exe')
 
   
 
